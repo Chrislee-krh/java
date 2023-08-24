@@ -44,7 +44,7 @@ public class ArrayExample2 {
 		
 		for(int i = 0; i<arr2.length; i++) {
 			for(int j =0; j<arr2[i].length;j++) {
-				System.out.println(arr2[i][j]);
+				System.out.print(arr2[i][j] + "\t");
 			}
 			System.out.println();
 		}
@@ -53,7 +53,7 @@ public class ArrayExample2 {
 		for(int i=0; i<arr3.length;i++) {
 			for(int j=0; j<arr3[i].length;j++) {
 				for(int k=0;k<arr3[i][j].length;k++) {
-					System.out.println(arr3[i][j][k]);
+					System.out.print(arr3[i][j][k] + "\t");
 				}
 			}
 			

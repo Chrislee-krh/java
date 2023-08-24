@@ -19,7 +19,7 @@ public class Quiz {
 		String str = scan.next();
 		
 		String pstr = "";
-		
+
 		for (int i = 0; i<str.length(); i++) {
 			char uniInt = str.charAt(i);
 			if('A'<uniInt&&uniInt<'Z') {

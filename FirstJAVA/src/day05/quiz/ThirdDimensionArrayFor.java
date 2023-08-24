@@ -9,7 +9,10 @@ public class ThirdDimensionArrayFor {
 				{20,20,20},
 				{30,30,30}
 		};
-		//정답
+		
+		//정
+		//답
+		
 //		int sum = 0;
 //		int items = 0;
 //		for(int i =0; i<numArr.length;i++) {
@@ -40,4 +43,4 @@ public class ThirdDimensionArrayFor {
 		
 	}
 
-}
+
