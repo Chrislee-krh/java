@@ -1,11 +1,16 @@
-package day06;
+package day07.customermanager;
 
 import java.util.Scanner;
+
+import day07.customanager.oop.Customer;
 
 public class CustomerManager {
 
 	// 배열에 저장될 최대 고객의 수
 	static final int MAX = 100;
+	
+	// Customer 객체의 배열을 선언
+	static Customer[] cusList = new Customer[MAX];
 	
 	// 고객 정보를 저장할 변수를 배열로 선언(필드): 이름, 성별, 이메일, 출생년도
 	static String[] nameList = new String[MAX]; // 이름 저장
@@ -24,7 +29,6 @@ public class CustomerManager {
 	// 기본 입력장치로부터 데이터를 입력 받기 위해, Scanner객체 선언
 	static Scanner scan = new Scanner(System.in);
 			
-	
 	public static void main(String[] args) {
 		// 고객 관리 프로그램의 메뉴
 		while(true) { // 종료하면 안되고 계속 써야하기 때문에 true
@@ -99,7 +103,7 @@ public class CustomerManager {
 				System.out.println("데이터를 삭제합니다.");
 				if((index>=0)&&(index<cnt)) {
 					//for(<cnt)
-					eraseCustomerData(index);
+					deleteCustomerData(index);
 				} else {
 					System.out.println("삭제할 데이터가 선택되지 않았습니다.");
 				}
@@ -131,61 +135,61 @@ public class CustomerManager {
 		System.out.print("출생년도를 입력하세요: ");
 		int birthYear = scan.nextInt();
 		
-		// 고객 객체를 배열에 저장
-		nameList[cnt] = name;
-		genderList[cnt] = gender;
-		emailList[cnt] = email;
-		birthYearList[cnt] = birthYear;
-		cnt++;	//cnt번째 배열에 객체를 저장하고, cnt값 증가!
+		// 고객 객체를 배열에 저장(Customer 클래스의 객체)
+		Customer c1 = new Customer();
+		c1.setName(name);
+		c1.setGender(gender);
+		c1.setEmail(email);
+		c1.setBirthYear(birthYear);
+		cusList[cnt] = c1;
+		cnt ++;
 	}
 	
 	// 현재 고객 정보 출력
 	public static void printCustomerData(int index) { //데이터를 받아와야해서 매개변수가 필요하다. 저장공간이 다른 매개변수(위와는 상관이 없다)
 		System.out.println("==========CUSTOMER INFO===============");
-		System.out.println("이름: " + nameList[index]);
-		System.out.println("성별: " + genderList[index]);
-		System.out.println("이메일: " + emailList[index]);
-		System.out.println("출생년도: " + birthYearList[index]);
+		System.out.println("이름: " + cusList[index].getName());
+		System.out.println("성별: " + cusList[index].getGender());
+		System.out.println("이메일: " + cusList[index].getEmail());
+		System.out.println("출생년도: " + cusList[index].getBirthYear());
 		System.out.println("======================================");
 	}
 	
 	public static void updateCustomerData(int index) {
-		System.out.println("----------UPDATE CUSTOMER INFO----------");
-		System.out.print("이름("+nameList[index]+") :");
-		String name = scan.nextLine();
-			if(name.length()!=0) nameList[index] = name;
-		nameList[index] = scan.next();
-		System.out.print("성별("+genderList[index]+") :");
-		genderList[index] = scan.next();
-		System.out.print("이메일("+emailList[index]+") :");
-		emailList[index] = scan.next();
-		System.out.print("출생년도("+birthYearList[index]+") :");
-		birthYearList[index] = scan.nextInt();
+		System.out.print("이름("+ cusList[index].getName()+") : ");
+		cusList[index].setName(scan.nextLine());
+		System.out.print("성별(M/F)("+ cusList[index].getGender()+") : ");
+		cusList[index].setGender(scan.nextLine());
+		System.out.print("이메일("+ cusList[index].getEmail()+") : ");
+		cusList[index].setEmail(scan.nextLine());
+		System.out.print("출생년도("+ cusList[index].getBirthYear()+") : ");
+		cusList[index].setBirthYear(scan.nextInt());
+		
+		// 고객 객체를 배열에 저장(Customer 클래스의 객체)
+//		cusList[index] = c1;
 	}
 	
 	// 쌤답
-//	public static void deleteCustomerData(int index) {
-//		for (int i = index; i < cnt - 1; i++) {
-//		    nameList[i] = nameList[i + 1];
-//		    genderList[i] = genderList[i + 1];
-//		    emailList[i] = emailList[i + 1];
-//		    birthYearList[i] = birthYearList[i + 1];
-//		}
-//			cnt--;
-//	}
+	public static void deleteCustomerData(int index) {
+		
+		for (int i = index; i < cnt - 1; i++) {
+		    cusList[i] = cusList[i+1];
+		}
+			cnt--;
+	}
 	
 	
 	// 내답
-	public static void eraseCustomerData(int index) {
-				
-		while(index < cnt - 1) {
-			nameList[index] = nameList[index+1];
-			genderList[index] = genderList[index+1];
-			emailList[index] = emailList[index+1];
-			birthYearList[index] = birthYearList[index+1];
-			index++;
-		}
-		cnt--;
+//	public static void eraseCustomerData(int index) {
+//				
+//		while(index < cnt - 1) {
+//			nameList[index] = nameList[index+1];
+//			genderList[index] = genderList[index+1];
+//			emailList[index] = emailList[index+1];
+//			birthYearList[index] = birthYearList[index+1];
+//			index++;
+//		}
+//		cnt--;
 //			if(cnt == 1) {
 //				nameList[index] = null;
 //				genderList[index] = null;
@@ -214,6 +218,5 @@ public class CustomerManager {
 //	    genderList[cnt] = null;
 //	    emailList[cnt] = null;
 //	    birthYearList[cnt] = 0;
-	
-	
-}
+		
+//}
