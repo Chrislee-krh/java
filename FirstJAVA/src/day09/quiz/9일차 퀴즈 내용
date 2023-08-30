@@ -1,0 +1,29 @@
+메인(테스트)
+{}
+Buyer b1 = new Buyer();
+b1.cash = 500000;
+
+
+
+메인 바깥, 전체 클 안
+
+class Buyer{
+	//조건- 인스턴스 변수(상태): 필요한 만큼 써라. 
+	int cash
+}
+	//트렁크 관련 변수
+	final int MAX_TRUNK_SIZE = 20;
+	Product[] trunk  = new Product[MAX_TRUNK_SIZE];
+	
+}
+
+class Product {
+
+	String name;
+	private int price;//private: 내 클래스 내부에서만 사용하려고 함
+	public Product(int price){
+		this.price = price;
+	}
+	
+}
+

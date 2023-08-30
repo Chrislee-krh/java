@@ -1,0 +1,34 @@
+데이터 타입
+1. 기본 타입(primitive type): 정수(byte, short, int, long), 실수(float, double), 문자(char), boolean(논리)
+	특징
+	- 기본 타입으로 선언된 변수는 실제 값을 변수에 저장(스택으로)
+
+2. 참조 타입(reference type): 배열(Array), 클래스(class), 인터페이스(interface)
+	특징
+	- 참조 타입으로 선언된 변수는 메모리의 주소값을 변수 안에 저장.
+	- 즉, 메모리 스택(Stack)영역에 주소값을 저장, 내부에서 실제 값은 힙(heap)메모리에 저장
+	- 번지를 해쉬값이라 한다.
+	
+	public class MainClass {										stack
+		import day07.Pen;												
+																	
+		public static void main(String[] args) {					Pen p2; -> = 200 <- p2에 대한 번지가 저장.
+			int a = 10;												Pen p1; -> = 100 <- 번지가 힙에 들어가고, 그게 스택에 저장.
+			int b = 20;												int c = 30;
+			int c = 30;												int b = 20;
+																	int a = 10;
+																	
+			Pen p1;													heap
+			p1 = new Pen();											
+																	
+			Pen p2 = new Pen();							p2 번지  ->	new Pen()	
+														p1 번지  ->	new Pen()						
+		}
+	}
+	
+	*** 참조 타입 String과 객체 동등비교 메서드: equals()
+		- 자바의 문자열이 동일하면 String 객체를 공유하도록 되어 있음.
+		- 그래서 단순히 문자열을 String 변수에 할당한다면 같은 주소값을 갖게 된다.(new를 쓰지 않고..) 
+		- 그러나 new 키워드를 사용해서 String 객체를 직접 heap영역에 생성한다면, 문자열 내용이 같아도 다른 주소값을 가져서, (==, !=)의 결과는 false로 나오게 된다.
+			- 그래서 동일 String객체이든 다른 String객체이든 상관없이, 문자열의 내용값 그 자체를 비교할 때 equals() 메서드를 사용한다.
+		
