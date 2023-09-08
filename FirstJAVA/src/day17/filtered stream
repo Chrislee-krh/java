@@ -1,0 +1,71 @@
+# 필터 스트림
+ 앞서 살펴본 노드 스트림 클래스는 "노드"를 기반으로 해당 노드의 내용을 읽거나 쓰는 일을 함.
+ 반면, 필터 스트림은 "노드 스트림"을 기반으로 해당 노드 스트림의 입출력 기능을 강화
+ 대표적으로 BufferedReader와 같은 경우로  한 줄씩 읽어와서 String형식으로 반환해주는 readLine()이라는 메서드 존재
+ 필터스트림 클래스 중 Buffered***, DataInput/OutputStream, ObjectInput/OutputStream
+ 
+ Type				Byte Streams				Character Streams
+ Buffering			BufferedInputStream			BufferedReader
+ 					BufferedOutputStream		BufferedWriter
+ 					
+ Data Conversion	DataInputStream
+ 					DataOutputStream 
+ 					
+ Filtering			FilterInputStream			FilterReader
+ 					FilterOutputStream			FilterWriter
+ 					
+ Converting			-							InputStreamReader
+ (byte<->char)									OutputStreamWriter
+ 
+ Object				ObjectInputStream			-
+  Serialization		ObjectOutputStream
+  
+ Counting			LineNumberInputStream		LineNumberReader
+ 
+ Printing			PrintStream					PrintWriter
+-------------------------------------------------------------------- 
+# BufferedWriter
+ - 이 클래스는 텍스트 파일을 프로그램으로 쓸 때 사용하는 문자 기반 스트림
+ - 데이터를 읽고, 버퍼에 저장한 후, 한 번에(*) 쓰는 형태로 동작해서 속도가 빠름
+ - 노드 스트림을 매개변수로 받아서 처리하는 필터 스트림이다.
+
+	# 주요 메서드
+	 - writer: 노드 스트림고 거의 흡사
+	 - flush(): 버퍼를 비운다
+ 		*버퍼가 가득 찼을 때만 출력을해서 flush()호출해서 잔류 데이터를 처리해서 내 보내야함
+ 		 or var.close();해야 함	
+ 
+# BufferedReader
+ - 이 클래스는 텍스트 파일을 프로그램으로 읽을 때 사용하는 문자 기반 스트림
+ - 버퍼를 이용, 저장 후 한 번에 읽는 방식으로 속도가 빠름
+ - 사용법은 BufferedWriter과 같이 노드 스트림을 매개변수로 받음.
+
+	# 주요 메서드
+	 - Reader클래스와 거의 동일
+	 - readLine(): 한 줄을 한꺼번에 읽어들여서 처리. 읽어들인 값이 없을 때 null 반환
+ -------------------------------------------------------------------- 
+# 객체 직렬화
+	# Serializable
+	 - 직렬화 클래스가 구현해야할 인터페이스
+	 - 마커 인터페이스
+	 - 객체 단위로 파일에 저장할 수 있도록 함
+	 - 실제로 저장되는 것은 멤버 변수 데이터만 저장되고, 생성자나 메서드 코드는 저장되지 않음
+	 	(받는 쪽에서 직렬화된 객체에 해당하는 클래스를 그대로 가지고 있어야 합니다.)
+	 	
+	# 객체 저장
+	 - ObjectOutputStream의 writeObject() 메서드를 이용
+	 
+	# 객체 읽기
+	 - ObjectInputStream의 readObject() 메서드를 이용
+	 
+	** transient: 객체 직렬화에서 제외할 변수에 선언
+
+	# serialVersionUID
+	 - 객체 직렬화 클래스의 "구조가 변경될 경우" 불러오지 못하는 예외를 방지하기 위해 선언. (예전의 바뀌기 전의 내용을 불러오기 위함도 있음)
+	 - private static final long serialVersionUID = 5093084889092L;
+ 
+ 
+ 
+ 
+ 
+ 

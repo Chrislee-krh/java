@@ -23,11 +23,19 @@ public class Student extends Person {
 	public String getDetail() {
 		return "이름: " + name + "\t나이: " + age + "\t학번: " + studentId + "\t전공: " + major;
 	}
+	
+	
 
 	public void study() {
 		System.out.println(name + "학생은 공부중");
 	}
 	
+//	@Override
+//	public void study() {
+//		System.out.println(name + "스튜던트 출력");
+//		super.study();
+//	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

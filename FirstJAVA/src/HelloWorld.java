@@ -11,7 +11,10 @@ public class HelloWorld {
 		System.out.println("Hello World!!");
 		System.out.println("Hello World!!!"); //sysout 적고, ctrl+space라고 누르면 자동으로 위의 문장이 저장됨!
 		
-		
+		StringBuffer sb1 = new StringBuffer("Hello");
+		StringBuffer sb2 = new StringBuffer("Hello");
+
+
 	}
 
 }

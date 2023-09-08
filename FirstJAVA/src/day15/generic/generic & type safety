@@ -1,0 +1,24 @@
+# 제네릭과 형 안정성
+
+# 제네릭 설명
+ - 클래스 이름<데이터 타입>, 메서드 이름
+ - 제네릭은 JDK 1.5(JDK5)부터 도입
+ - 이전까진 Object 유형의 객체를 받기 때문에 어떤 객체이든지 element로 넣을 수 있었음.
+ - 하지만, element를 사용하기 위해 넣기 전의 상태로 되돌려야 했고, 반드시 형 변환을 해야했음.
+ 
+ - 제네릭 표현을 통해 컬렉션의 element에 해당 데이터 타입만 들어가게 체크
+ - 더이상 형 변환의 필요가 없게 됐고, 다양한 element가 들어갈 때 발생할 수 있는 오류를 원천 차단
+ - 1.7(JDK7)부터 제네릭 표현이 중복된 경우 뒤에 표현을 <>로 생략 가능(Diamond Operation-<>다이아 모양)
+ 
+	# 사용법
+	1. 클래스
+	 public class ArrayList<E>
+	 		extends AbstractList<E>
+	 		implements List<E>, RandomAcess, Cloneable, Serializable
+	 클래스 선언부에 있는 <E>: 유형 매개변수. 객체 생성시 <String>이라 작성하면 <E>자리로 들어감.
+	 e.g.) ArrayList<Integer> my List = new ArrayList<>(); 일때 <Integer>이 <E>로 들어감.
+	 
+	  - 제네릭 클래스가 가진 변수 타입으로 E를 이용할 수 있다.
+	   e.g.) <E> name;
+	  - 제네릭 클래스가 가진 메서드에서도 인자의 타입이나 리턴 타입으로 이를 이용할 수 있다.
+	   

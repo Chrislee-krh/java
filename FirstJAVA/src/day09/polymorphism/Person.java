@@ -43,6 +43,10 @@ public class Person {
 		System.out.println(name + "(은)는 걸어라.");
 	}
 	
+//	public void study() {
+//		System.out.println("부모출력: 공부해!");
+//	}
+	
 	
 	// 생성자의 첫 라인은 반드시 super()또는 this()가 와야함.
 	@Override
