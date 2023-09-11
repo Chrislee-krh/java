@@ -20,6 +20,8 @@ public class FileExample {
 		System.out.println("isDirectory? "+f.isDirectory());
 		System.out.println("isDirectory? "+dir.exists());
 		
+		System.out.println("parent: " + f.getParent());
+		
 		// 3. isAbsolute: 해당 경로가 절대 경로인지 확인
 		// 절대 경로: 파일이나 디렉터리를 지정할 때, root(최상 위)경로부터 모든 경로 정보를 다 기술
 		//			어디서든 같은 값을 가짐. 하지만 경로 길이가 길다.

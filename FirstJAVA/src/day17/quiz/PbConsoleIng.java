@@ -89,7 +89,6 @@ public class PbConsoleIng {
 				long pNum = gValue.getKey();
 				String pName = gValue.getValue();
 				System.out.println("Phone Number: " + pNum + ", Name: " + pName);
-				
 			}
 		}	
 //		Set<Map.Entry<String, Map<Long,String>>> s = pb.entrySet();
@@ -97,7 +96,7 @@ public class PbConsoleIng {
 	}
 	
 	public static void loadMember() {
-		File f = new File("E:\\games\\memberlist.txt");
+		File f = new File("E:\\develop\\Java\\FirstJAVA\\file\\memberlist.txt");
 		FileReader fr = null;
 		BufferedReader br = null;
 		String code = null;
@@ -159,8 +158,6 @@ public class PbConsoleIng {
 			else { System.out.println("That group does not exist!");}
 	}	
 
-			
-			
 //			Set<Long> keySet = new HashSet<Long>();
 //			for(Long num : info.keySet()) {
 //				if(!keySet.add(num)) {System.out.println("중복된 번호입니다.");}
@@ -213,7 +210,7 @@ public class PbConsoleIng {
 	
 	public static void saveMember(String content) {
 		
-		File memberList = new File("E:\\games\\memberlist.txt");
+		File memberList = new File("E:\\develop\\Java\\FirstJAVA\\file\\memberlist.txt");
 		
 		FileWriter fw = null;
 		BufferedWriter bw = null;
@@ -237,7 +234,7 @@ public class PbConsoleIng {
 	
 	public static boolean isNumExist(long num) {
 		
-		File memberList = new File("E:\\games\\memberlist.txt");
+		File memberList = new File("E:\\develop\\Java\\FirstJAVA\\file\\memberlist.txt");
 				
 			FileReader fr = null;
 			BufferedReader br = null;
@@ -284,7 +281,7 @@ public class PbConsoleIng {
 		System.out.println("Show all the member information");
 		System.out.println("Type in part of phone number you can remember :) >");
 		long partialPNum = sc.nextLong();
-//		boolean found = false;
+		boolean found = false;
 		
 		
 		for(Map.Entry<String, Map<Long,String>> gEntry : pb.entrySet()) {
@@ -297,13 +294,14 @@ public class PbConsoleIng {
 					String gName = gEntry.getKey();
 					String pName = info.getValue();
 					System.out.println("Group name: " + gName + "Member Name: " + pName + "Phone #: " + pNum);
-//					found = false;
+					found = true;
 				} 
-				if(!String.valueOf(pNum).contains(String.valueOf(partialPNum))) {
-					System.out.println("No member matches with those numbers.");
-				}
+				
 				}
 			}
+		if(!found) {
+			System.out.println("No member matches with those numbers.");
+		}
 		
 		}
 //		}
@@ -324,6 +322,7 @@ public class PbConsoleIng {
 		String partialName;
 		System.out.println("Type in member's name to get the lists of members who are under those parts of names");
 		partialName = sc.nextLine();
+		boolean found = false;
 		
 		for(Map.Entry<String, Map<Long,String>> pEntry : pb.entrySet()) {
 //			String gName = pEntry.getKey();
@@ -333,13 +332,13 @@ public class PbConsoleIng {
 				if (pName.contains(partialName)) {	
 					String gName = pEntry.getKey();
 					long pNum = info.getKey();
-					
-					System.out.println("Group name: " + gName + "Member Name: " + pName + "Phone #: " + pNum);	
+					System.out.println("Group name: " + gName + "Member Name: " + pName + "Phone #: " + pNum);
+					found = true;
 				} 
-				if (!pName.contains(partialName)) {
-					System.out.println("No member matches with those partial names");
-				}
 			}
+		}
+		if (!found) {
+			System.out.println("No member matches with those partial names");
 		}
 	}
 	

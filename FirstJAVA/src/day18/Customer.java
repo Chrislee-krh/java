@@ -1,9 +1,8 @@
-package day07.customanager.oop;
+package day18;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
-// 데이터 처리를 위한 객체
+//데이터 처리를 위한 객체
 
 public class Customer implements Serializable{
 	// 멤버 변수
