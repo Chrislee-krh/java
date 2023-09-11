@@ -1,0 +1,4 @@
+chris: m, rt@naver.com, 1993
+lana: f, kkrr@naver.com, 9931
+chris: m, 12332, 3333
+lana: f, 23232, 233232
