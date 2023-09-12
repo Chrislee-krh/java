@@ -1,6 +1,6 @@
 package day19;
 
-public class LambdaFunctionEx {
+public class LambdaEx1 {
 
 	public static void main(String[] args) {
 		// 람다식 표현
