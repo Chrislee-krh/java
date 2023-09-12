@@ -2,3 +2,7 @@ chris: m, rt@naver.com, 1993
 lana: f, kkrr@naver.com, 9931
 chris: m, 12332, 3333
 lana: f, 23232, 233232
+chris: f, rtrt@naver.com, 1984
+chris: , m, 3232
+chris: f, kkrr@naver.com, 9931
+chris: f, 23232, 233232

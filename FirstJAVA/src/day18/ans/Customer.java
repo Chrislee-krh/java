@@ -1,21 +1,26 @@
-package day18;
+package day18.ans;
 
 import java.io.Serializable;
 
-//데이터 처리를 위한 객체
+public class Customer implements Serializable {
 
-public class Customer implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7219297165885816706L;
-	// 멤버 변수
+	private static final long serialVersionUID = 9156118040744796398L;
+	
 	private String name;
 	private String gender;
 	private String email;
 	private int birthYear;
 	
-	//getter/setter
+	public Customer() {	}
+
+	public Customer(String name, String gender, String email, int birthYear) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.email = email;
+		this.birthYear = birthYear;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -49,8 +54,10 @@ public class Customer implements Serializable{
 	}
 
 	@Override
-	public String toString() { //주소가 아니라, 안의 정보를 그대로 출력해준다.
-		// 이름, 성별, 이메일, 출생년도 출력으로 변경
-		return "[이름= " + name + ", 성별= "+ gender + ", 이메일= "+ email + "출생년도= "+ birthYear;
+	public String toString() {
+		return "[이름="+name+", 성별="+gender+", 이메일="+email+", 생년월일="+birthYear+"]";
 	}
+	
+	
+
 }

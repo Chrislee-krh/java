@@ -24,7 +24,7 @@ public class CustomerManagerIng {
 	static Scanner scan = new Scanner(System.in);
 	
 	File savedFile = null;
-	String savedPath = "E:\\develop\\Java\\FirstJAVA\\file\\customerManager.txt";
+	String savedPath = "E:\\Develop\\Java\\FirstJAVA\\file\\customerManager.txt";
 	
 	public static void main(String[] args) {
 		loadMember();
@@ -69,7 +69,7 @@ public class CustomerManagerIng {
 
 
 public static void loadMember() {
-	File f = new File("E:\\develop\\Java\\FirstJAVA\\file\\customerManager.txt");
+	File f = new File("E:\\Develop\\Java\\FirstJAVA\\file\\customerManager.txt");
 	FileReader fr = null;
 	BufferedReader br = null;
 	String code = null;
@@ -136,7 +136,7 @@ public static void insertCustomerData() {
 
 public static void saveMember(String content) {
 	
-	File f = new File("E:\\develop\\Java\\FirstJAVA\\file\\customerManager.txt");
+	File f = new File("E:\\Develop\\Java\\FirstJAVA\\file\\customerManager.txt");
 	
 	FileWriter fw = null;
 	BufferedWriter bw = null;
@@ -233,6 +233,20 @@ public static void deleteCustomerData() {
 			iter.remove();
 		}
 		found = true;
+	}
+	
+	for(Customer customer : cusList) {
+		
+			System.out.println(name + " has just been erased from the DB");
+
+			customer.setName (customer.getName());
+			customer.setGender(customer.getGender());
+			customer.setEmail(customer.getEmail());
+			customer.setBirthYear(customer.getBirthYear());
+			saveMember(name + ": " + customer.getGender()+", "+ customer.getEmail()+", "+customer.getBirthYear());
+//			scan.nextLine();
+			found = true;
+		
 	}
 	
 	
