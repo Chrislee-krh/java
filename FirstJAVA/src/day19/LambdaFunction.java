@@ -2,8 +2,6 @@ package day19;
 
 import java.util.function.ToDoubleFunction;
 
-import com.sun.org.apache.xpath.internal.functions.Function;
-
 public class LambdaFunction {
 
 	static Student[] list = {
