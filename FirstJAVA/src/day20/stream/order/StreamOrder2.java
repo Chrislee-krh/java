@@ -20,7 +20,7 @@ public class StreamOrder2 {
 		
 		System.out.println("내림차순 정렬");
 		list.stream().sorted((a,b)-> b.compareTo(a) - a.compareTo(b))
-			.forEach(System.out::println);
+			.forEach(s -> System.out.println(s));
 		list.stream().sorted(Comparator.reverseOrder())
 		.forEach(System.out::println);
 		

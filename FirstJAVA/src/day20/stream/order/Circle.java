@@ -14,12 +14,12 @@ public class Circle extends Shape {
 	}
 
 	@Override
-	double area() {
+	public double area() {
 		return (r*r)*Math.PI;
 	}
 
 	@Override
-	double length() {
+	public double length() {
 		return (2*r)*Math.PI;
 	}
 

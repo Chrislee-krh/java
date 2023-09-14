@@ -22,7 +22,7 @@ public class DirectoryToStream {
 			
 			System.out.println("find() 메서드를 이용해서 스트림 생성하기");
 			// src 디렉터리를 시작으로 특정 단계까지 디렉터리 깊이로 탐색
-			Stream<Path> sr2 = Files.find(path, 10, (p,  BasicFileAttributes) -> { // p는 path클래스 p의 파일 속성값을
+			Stream<Path> sr2 = Files.find(path, 10, (p, BasicFileAttributes) -> { // p는 path클래스 p의 파일 속성값을
 				File file = p.toFile(); // 파일로 넘겨서
 				// 디렉터리가 아닌 파일 이름에 Stream이 포함된 파일명
 				return !file.isDirectory() && file.getName().contains("Stream"); // 확인

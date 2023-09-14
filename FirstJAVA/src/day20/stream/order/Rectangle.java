@@ -15,12 +15,12 @@ public class Rectangle extends Shape {
 		this.h = h;
 	}
 	@Override
-	double length() {
+	public double length() {
 		return (w+h)*2;
 	}
 	
 	@Override
-	double area() {
+	public double area() {
 		return (w*h);
 	}
 

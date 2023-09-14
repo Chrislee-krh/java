@@ -14,8 +14,8 @@ public abstract class Shape implements Comparable<Shape>{
 	}
 	
 	// 추상메서드
-	abstract double area();
-	abstract double length();
+	public abstract double area();
+	public abstract double length();
 	
 	// 일반메서드
 	public String getLocation() {
