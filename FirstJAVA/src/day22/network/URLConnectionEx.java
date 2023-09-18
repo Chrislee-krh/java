@@ -1,11 +1,11 @@
-package day21.network;
+package day22.network;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 
-public class URLEx {
+public class URLConnectionEx {
 
 	public static void main(String[] args) {
 		// URL 클래스

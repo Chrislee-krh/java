@@ -1,4 +1,4 @@
-package day21.network;
+package day22.network;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
