@@ -1,4 +1,4 @@
-package day22.network;
+package day23.network;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

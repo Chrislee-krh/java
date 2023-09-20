@@ -1,0 +1,105 @@
+# SQL 명령어
+ - 데이터 베이스 정의어(DDL - Create, Alter, Drop)
+ 
+ 	#create: 객체 생성
+ 	1) DB생성
+ 	CREATE DATABASE databasename; => 데이터 베이스 생성
+ 	**자바와 같이 ";" 은 SQL 구문의 끝에 작성
+ 	
+ 	2) Table 생성(Entity 생성)
+ 	CREATE TABLE tableName(
+ 		column1 datatype constraint,
+ 		column2 datatype constraint,
+ 		column3 datatype constraint,
+ 	);
+ 	
+ 	datatype: 각 DBMS마다 차이가 있을 수 있다.
+ 	constraint: 제약 조건으로 해당 컬럼에 부여하는 조건들
+ 	
+ 	#alter: 객체 수정 - 구조를 변경하고자 할 때
+ 	 1) 지정한 테이블에 컬럼을 추가
+ 	 	ALTER TABLE tableName ADD columnName datatype;
+ 	
+ 	 	e.g.)table에 phone(varchar(20)) 추가해보기
+ 	 		alter table users add phone varchar(20);
+ 	 		
+ 	 	실습) table에 Korean(int), English(int), Math(int)를 추가!
+ 	 	
+ 	 2) 지정한 테이블에 컬럼을 삭제(일부 시스템은 지원x -> 명령어를 사용할 수 없다)
+ 	 	ALTER TABLE tableName DROP COLUMN columnName;
+ 	 	
+ 	 	실습) table에서 English를 삭제
+ 	 
+ 	 3) 데이터 타입 수정(각 DBMS마다 다를 수 있음)
+ 	 - SQL Server/MS Acess
+ 	 	ADD 대신 ALTER COLUMN
+ 	 - MySQL/Oracle(10g이전)
+ 	 	ADD 대신 MODIFY COLUMN
+ 	 - Oracle 10G이후 버전
+ 	 	ADD 대신 MODIFY
+ 	 
+ 	 #drop: 객체 삭제
+ 	 	database 삭제
+ 	 		DROP DATABASE databaseName;
+ 	 	table 삭제
+ 	 		DROP TABLE tableName;
+ 	 	
+ 	 #truncate table: table내의 데이터를 테이블을 남겨둔채로 삭제
+ 	 	TRUNCATE TABLE tableName;
+ 	 
+  - Constraints(제약 조건)
+   테이블을 생성할 때 테이블의 컬럼에 제약조건을 설정할 수 있다.
+   
+   CREATE TABLE table_name(
+   	column1 datatype constraint,
+   	column2 datatype constraint,
+   	column3 datatype constraint,
+ 	...
+	);
+	
+	제약 조건은 테이블 내의 데이터(레코드)를 위한 특별 규칙 정하기. 즉 테이블 내에 저장할 때 제약을 걸어 규정된 이외의 행동을 막는 역할
+	제약 조건은 테이블 내에 있는 컬럼 혹은 태이블에 지정할 수 있고, 테이블에 지정된 경우 전체에 영향을 준다.
+	
+		#일반적 사용 제약 조건
+	 	 - NOT NULL: 컬럼값은 null안됨.
+	 	 - UNIQUE: 컬럼 내 모든 값들 중에 유일해야한다.(중복X)
+	 	 - PRIMARY KEY: 레코드를 구분하는 기준값(고유값)으로 사용
+	 	 			NOT NULL + UNIQUE
+		 - FOREIGN KEY: 다른 테이블에 레코드를 구분할 수 있는 값으로 사용(무결성 체크 때 사용) 
+		 - CHECK: 컬럼의 모든 값이 특정 조건을 충족하는지 확인하는 값
+		 - DEFAULT: 값이 지정되지 않은 경우 컬럼의 기본값을 설정
+ 	 	 - INDEX: DBMS에서 데이터를 신속하게 생성 및 검색하기 위해서 사용하는 값
+ 	 	 
+ ###
+ 	데이터베이스 조작어(DML) - CRUD-CREATE, RETRIEVE(READ), UPDATE, DELETE
+ 		INSERT, SELECT(**************************주우우웅요), UPDATE, DELETE	
+ 		
+ 		# insert: 테이블에 데이터 삽입
+ 			INSERT INTO table_name(column1, column2, column3, ...)
+ 			VALUES(value1,value2,value3,...);
+ 				지정된 컬럼에만 데이터를 추가 삽입
+ 				
+ 			INSERT INTO table_name VALUES(value1,value2,value3,...);
+ 				모든 컬럼의 데이터를 추가해야만 삽입이 가능
+ 				
+ 			#Persons 테이블
+ 				create table Persons(
+ 						id int,
+ 						lastname varchar(20),
+ 						firstname varchar(20),
+ 						age int
+ 				);
+ 				
+ 				- insert 연습 위(변수 한 개를 제외시켜도 가능)
+ 				insert into Persons(id, lastName, firstName)
+ 				values(100,'testLast','testFirst');
+ 				
+ 				- insert 연습 아래(변수 값 다 넣어야함)
+ 				insert into Persons values(100,'testLast','testFirst',100);
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		 	 
+ 	 
