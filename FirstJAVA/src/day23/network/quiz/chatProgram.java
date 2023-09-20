@@ -8,26 +8,29 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
+import day23.network.quiz.Users;
 
 public class chatProgram {
-
+   static Scanner scanner = new Scanner(System.in);
 	public static void main(String[] args) {
-	    Scanner scanner = new Scanner(System.in);
-        System.out.println("서버 모드(1) 또는 클라이언트 모드(2)를 선택하세요:");
-        int mode = scanner.nextInt();
-        
-        if (mode == 1) {
-            runServer();
-        } else if (mode == 2) {
-            scanner.nextLine(); // Consume the newline character
-            System.out.println("사용하길 원하는 닉네임을 입력하세요: ");
-            String ID = scanner.nextLine();
-            runClient(ID);
-        } else {
-            System.out.println("올바른 모드를 선택하세요 (1 또는 2).");
-        }
-    }
 
+//        System.out.println("서버 모드(1) 또는 클라이언트 모드(2)를 선택하세요:");
+//        int mode = scanner.nextInt();
+        
+//        if (mode == 1) {
+        	Thread serverThread = new Thread(chatProgram::runServer);
+            serverThread.start();
+//        } else if (mode == 2) {
+            Thread clientThread = new Thread(() -> runClient());
+            clientThread.start();
+            
+//        } else {
+//            System.out.println("올바른 모드를 선택하세요 (1 또는 2).");
+//        }
+    }
+	
     public static void runServer() {
 		// UDP Server DatagramSocket, DatagramPacket
 		InetAddress multicastGroup = null;
@@ -62,28 +65,33 @@ public class chatProgram {
 			    } else if (msg.startsWith("msg: ")) {
 			        String msgContents = msg.substring("msg: ".length());
 			        System.out.println(msgContents.stripTrailing());
-			    }
-			    // 다른 분들 구현 방식을 받을 수 있게 여기 if로 작성하자.	
-			   
+			    }   
 			}
-				
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-	
     }
 
-    public static void runClient(String ID) {
+    public static void runClient() {
         try {
-            InetAddress local = InetAddress.getLocalHost();
-            System.out.println("해당 컴퓨터의 로컬 ip입니다. " + local);
-            
             BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
             InetAddress serverIP = InetAddress.getByName("230.0.0.1");
-            
+    		Scanner scan = new Scanner(System.in);
+    		System.out.println("사용하실 닉네임을 적으세요: ");
+    		System.out.print(">");
+    		String ID = scan.nextLine();
+    		InetAddress local = InetAddress.getLocalHost();
+//    		System.out.println("해당 컴퓨터의 로컬 ip입니다. " + local);
+    		Users.cl.put(ID, local.toString());
+    		System.out.println("메세지를 입력하세요. 종료하시려면 'q'를 입력하세요.");
             while (true) {
-                System.out.print("메세지를 입력하세요: ");
+            	
                 String data = sysin.readLine();
+                if (data.equals("q") || data.equals("Q") || data.equals("ㅂ")) {
+                	System.out.println("채팅프로그램을 종료합니다.");
+                	System.exit(0);
+                }
+
                 DatagramSocket dataSocket = new DatagramSocket();
                 
                 for (Map.Entry<String, String> chatterInfo : Users.cl.entrySet()) {
@@ -108,3 +116,47 @@ public class chatProgram {
         }
 	}
 }
+
+//class Users {
+//	private String iD;
+//	private String local;
+//	static Map<String, String> cl = new HashMap<>();
+//	
+//	public static String getValue(String key) {
+//        return cl.get(key);
+//    }
+//
+//    public static void setValue(String key, String value) {
+//        cl.put(key, value);
+//    }
+//	
+//	public Users() {}
+//	
+//	public Users(String iD, String iPAddress) {
+//		iD = this.iD;
+//		local = this.local;
+//	}
+//
+//	public String getiD() {
+//		return iD;
+//	}
+//
+//	public void setiD(String iD) {
+//		this.iD = iD;
+//	}
+//
+//	public String getLocal() {
+//		return local;
+//	}
+//
+//	public void setLocal(String local) {
+//		this.local = local;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "Users [iD=" + iD + ", local=" + local + "]";
+//	}
+//
+//	
+//}

@@ -38,9 +38,9 @@ public class CServer {
 				
 				// 패킷 데이터 수신
 				socket.receive(inPacket);
-				InetAddress address = inPacket.getAddress();
+//				InetAddress address = inPacket.getAddress();
 				// 클라이언트 포트
-				int port = inPacket.getPort();
+//				int port = inPacket.getPort();
 				
 				// 문자열로 저장
 				String msg = new String(inMsg,0,inPacket.getLength());

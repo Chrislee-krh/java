@@ -26,8 +26,8 @@ public class CClient {
 		String ID = scan.nextLine();
 		InetAddress local = InetAddress.getLocalHost();
 		System.out.println("해당 컴퓨터의 로컬 ip입니다. " + local);
-//		saveMember(ID + " " + local.toString().substring(local.toString().indexOf("/")+1, local.toString().length())); // 이 내용이 소켓으로 서버에 전달되고 서로 받도록
 		Users.cl.put(ID, local.toString());
+//		saveMember(ID + " " + local.toString().substring(local.toString().indexOf("/")+1, local.toString().length())); // 이 내용이 소켓으로 서버에 전달되고 서로 받도록
 //		System.out.println(cl.values());
 //		System.out.println(cl.toString());
 		BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
