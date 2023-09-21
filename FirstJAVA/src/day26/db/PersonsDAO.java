@@ -1,13 +1,227 @@
 package day26.db;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import day26.db.DBConnectMain;
+
 public class PersonsDAO {
+
+	// DAO 클래스 (Data Access Object Class)
+	// - 데이터베이스에 접속해서 데이터의  CRUD 등의 작업을 하는 클래스입니다.
+	// - 일반적으로 다른 프로그램 로직 위에서 동작하기도 하지만 별도의 DAO클래스를 만들어 사용하기도 합니다. 
+	//    -> 유지보수 및 코드의 모듈화를 위해서... 
+	// - 보통 한 개의 테이블마다 한 개의 DAO를 작성합니다. 
+	// - DAO 클래스는 테이블로부터 데이터를 읽어와 자바 객체로 변환하거나 자바 객체의 값을 테이블에 저장합니다.
+	// - 때문에 DAO를 구현하면 테이블의 컬럼과 매핑되는 값을 가지고 있는 클래스를 항상 작성해야 합니다. 
+	//   이것을 VO클래스라고 합니다. 
+
+	// 멤버 변수 - 필드, 속성
+	// Connection 객체 생성을 위한 값
+	private String url = "jdbc:mysql://localhost:3306/testdb?serverTimezone=Asia/Seoul";
+	private String user = "root";
+	private String password = "root1234";
+
+	// 데이터 접속을 위한 객체 
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+
+	// 생성자 - Connection 객체 생성
+	public PersonsDAO() {
+		try {
+			// 드라이버 로드
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// Connection 객체 생성
+			conn = DriverManager.getConnection(url, user, password);  //SQL
+
+		} catch (ClassNotFoundException ce) {
+			System.out.println("드라이버 로드 실패");
+			System.out.println(ce.getMessage());
+		} catch (SQLException sqle) {
+			System.out.println("SQL 연동 실패");
+			System.out.println(sqle.getMessage());
+		}
+	}
+
+
+	// 메서드 (CRUD)
+
+	// 데이터 입력 메서드 구현
+	public int insert(PersonsVO vo) {
+		int result = 0;
+
+		//SQL 작성
+		String sql = "insert into Persons (lastName, firstName, age, city)"
+				+ "values('"+vo.getLastName()+"','"+vo.getFirstName()+"',"+
+				vo.getAge()+",'"+vo.getCity()+"')";
+		try {
+			//Statement 객체 생성
+			stmt = conn.createStatement();	
+			//SQL 실행
+			result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.out.println("SQL 연동 에러");
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(conn!=null) conn.close();
+				if(stmt!=null) stmt.close();
+			} catch (Exception e2) {}
+		}
+		return result; // 실행 결과 반환
+	}
+	// 전체 테이블 정보 출력
+	public List<PersonsVO> allPersons(){
+		List<PersonsVO> list = new ArrayList<>();
+		PersonsVO vo = new PersonsVO();
+
+		String sql = "select * from Persons";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			//1번 방법
+//			while(rs.next()) {
+//				int id = rs.getInt("id");
+//				String lastName = rs.getNString("lastName");
+//				String firstName = rs.getNString("firstName");
+//				int age = rs.getInt("age");
+//				String city = rs.getNString("city");
+//				
+//				PersonsVO vo = new PersonsVO(id, firstName, lastName, age, city);
+//				list.add(vo);
+//			}
+			//2번 방법
+			while(rs.next()) {
+				vo.setId(rs.getInt("id"));
+				vo.setFirstName(rs.getString("firstName"));
+				vo.setLastName(rs.getNString("lastName"));
+				vo.setAge(rs.getInt("age"));
+				vo.setCity(rs.getString("city"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("sql 실패");
+			System.out.println(e.getMessage());
+		}
+		return list;
+	}
+	// id 입력값을 통한 정보 출력
+	public PersonsVO selectOne(int id) {
+		PersonsVO vo = null;
+		String sql = "select * from Persons where id = " + id;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				vo = new PersonsVO();
+				vo.setId(rs.getInt("id"));
+				vo.setFirstName(rs.getString("firstName"));
+				vo.setLastName(rs.getNString("lastName"));
+				vo.setAge(rs.getInt("age"));
+				vo.setCity(rs.getString("city"));
+			} else {
+				System.out.println("찾는 DB가 없습니다.");
+			}	
+		} catch (SQLException e) {
+			System.out.println("sql 실패");
+			System.out.println(e.getMessage());
+		}
+		return vo;
+	}
+	// 수정 메서드 구현 ("update Persons set " + vo.column where column = ?")
+	 public int updatePersons(PersonsVO vo) {
+		
+		 Scanner scan = new Scanner(System.in);
+		 int result = 0;
+		 String option = null;
 	
-	// DAO 클래스(DATA Access Object)
-	// 데이터베이스에 접속 후, 데이터 CRUD등의 작업을 하는 클래스
-	// 일반적으로 다른 프로그램 로직 위에 동작하기도 하지만 별도의 DAO클래스를 만들어 사용하기도 한다.
-	//	-> 유지보수 및 코드의 모듈화를 위해서..
-	// 보통 한 개의 테이블마다 한 개의 DAO를 작성한다.
-	// DAO 클래스는 테이블로 부터 데이터를 읽어와 자바 객체로 변환, 자바 객체의 값을 테이블에 저장
-	// 그래서 DAO를 구현하면 테이블의 컬럼과 매핑되는 값을 가지고 있는 클래스를 항상 작성해야 한다.
-	// 이를 VO클래스라고 한다.
+		 try {
+			stmt = conn.createStatement();
+			String sql = "select * from Persons";
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				vo.setId(rs.getInt("id"));
+				vo.setFirstName(rs.getString("firstName"));
+				vo.setLastName(rs.getNString("lastName"));
+				vo.setAge(rs.getInt("age"));
+				vo.setCity(rs.getString("city"));
+			}
+			
+		 
+		 } catch (SQLException e) {
+			System.out.println("SQL 입력 실패");
+			System.out.println(e.getMessage());
+		 }
+		 return result;
+	 }
+	
+	 // 삭제 메서드 구현
+	 public int deletePersons(int id) {
+		 int result = 0;
+		 
+		 return result;
+	 }
 }
+
+//
+//System.out.println("수정을 원하는 항목을 입력하세요.[id],[firstName],[lastName],[age],[city]");
+//option = scan.nextLine();
+//
+//if(option.equals("id")) {
+//	String voOp = "id";
+//	System.out.println("어느 컬럼에 있는 내용을 바꾸고 싶은가요?");
+//	String voCon1 = scan.nextLine();
+//	System.out.println("그 컬럼의 값이 어떤 조건일 때 바꾸고 싶은가요?");
+//	int voCon2 = scan.nextInt();
+//	System.out.println("원하는 아이디 번호를 입력하세요.");
+//	int voVal = scan.nextInt();
+//	sql = "update Persons set " + voOp + "=" + voVal + " where " + voCon1 + "= " + voCon2;
+//	
+//} else if (option.equals("firstName")) {
+//		String voOp = "firstName";
+//		System.out.println("어느 컬럼에 있는 내용을 바꾸고 싶은가요?");
+//		String voCon1 = scan.nextLine();
+//		System.out.println("그 컬럼의 값이 어떤 조건일 때 바꾸고 싶은가요?");
+//		String voCon2 = scan.nextLine();
+//		System.out.println("원하는 이름을 입력하세요.");
+//		String voVal = scan.nextLine();
+//		String sql2 = "update Persons set " + voOp + "=" + voVal + " where " + voCon1 + "= " + voCon2;
+//		
+//} else if (option.equals("lastName")) {
+//	 	String voOp = "lastName";
+//		System.out.println("어느 컬럼에 있는 내용을 바꾸고 싶은가요?");
+//		String voCon1 = scan.nextLine();
+//		System.out.println("그 컬럼의 값이 어떤 조건일 때 바꾸고 싶은가요?");
+//		String voCon2 = scan.nextLine();
+//		System.out.println("원하는 성을 입력하세요.");
+//		String voVal = scan.nextLine();
+//		sql = "update Persons set " + voOp + "=" + voVal + " where " + voCon1 + "= " + voCon2;
+//		
+//} else if (option.equals("age")) {
+//		String voOp = "age";
+//		System.out.println("어느 컬럼에 있는 내용을 바꾸고 싶은가요?");
+//		String voCon1 = scan.nextLine();
+//		System.out.println("그 컬럼의 값이 어떤 조건일 때 바꾸고 싶은가요?");
+//		int voCon2 = scan.nextInt();
+//		System.out.println("원하는 나이를 입력하세요.");
+//		int voVal = scan.nextInt();
+//		sql = "update Persons set " + voOp + "=" + voVal + " where " + voCon1 + "= " + voCon2;
+//		
+//} else if (option.equals("city")) {
+//	 	String voOp = "city";
+//		System.out.println("어느 컬럼에 있는 내용을 바꾸고 싶은가요?");
+//		String voCon1 = scan.nextLine();
+//		System.out.println("그 컬럼의 값이 어떤 조건일 때 바꾸고 싶은가요?");
+//		String voCon2 = scan.nextLine();
+//		System.out.println("원하는 도시를 입력하세요.");
+//		String voVal = scan.nextLine();
+//		sql = "update Persons set " + voOp + "=" + voVal + " where " + voCon1 + "= " + voCon2;
+//}	

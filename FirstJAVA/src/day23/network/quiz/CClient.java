@@ -8,6 +8,8 @@ import java.net.InetAddress;
 import java.util.Map;
 import java.util.Scanner;
 
+import day23.network.quizFinal.Users;
+
 public class CClient {
 	
 	public static void main(String[] args) throws Exception {
@@ -20,8 +22,6 @@ public class CClient {
 		System.out.println("해당 컴퓨터의 로컬 ip입니다. " + local);
 //		saveMember(ID + " " + local.toString().substring(local.toString().indexOf("/")+1, local.toString().length())); // 이 내용이 소켓으로 서버에 전달되고 서로 받도록
 		Users.cl.put(ID, local.toString());
-//		System.out.println(cl.values());
-//		System.out.println(cl.toString());
 		BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
 		InetAddress serverIP = InetAddress.getByName("230.0.0.1");
 		InetAddress ipAddress = InetAddress.getByName("192.168.100.58");
@@ -52,32 +52,3 @@ public class CClient {
 		}
 	}
 }
-
-//public static void saveMember(String content) {
-//	
-//	File memberList = new File("E:\\develop\\Java\\FirstJAVA\\file\\chatMemberList.txt");
-//	
-//	FileWriter fw = null;
-//	BufferedWriter bw = null;
-//	
-//	try {
-//		fw = new FileWriter(memberList, true);
-//		bw = new BufferedWriter(fw);
-//		
-//		bw.write(content);
-//		bw.newLine();
-//		
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//	}finally {
-//		if(bw != null) 
-//			 try {Closure.close(bw);} catch (Exception e2) {}
-//		if(fw != null) 
-//			try {Closure.close(fw);} catch (Exception e2) {}
-//	}
-//	
-//}
-
-
-
-
