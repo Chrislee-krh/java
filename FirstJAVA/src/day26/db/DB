@@ -1,0 +1,29 @@
+# Java에서 연동(JDBC)
+	순서(Outline)
+	1. Driver loading
+		: DB 연동을 위해서 구현된 라이브러리를 호출
+			Class.forName("드라이버 이름")
+	2. DriverManager  -> Connection 객체 생성
+		: DriverManager.getConnection() 메서드를 통해 Connection객체 생성
+			-> 추상클래스란 말(new안쓰니까)
+			*getConnection(String url, String user, String password)
+				- url: DB연동을 위한 DB주소
+				- user: DB접속 사용자
+				- password: DB접속 사용자의 패스워드
+	3. Connection 객체를 통해 Statement 객체를 생성
+		: Statement Object -> Connection 객체로. SQL Execute
+			Statement 객체는 SQL실행하기 위한 객체. createStatement()로 생성
+	4. SQL 작성 -> DB에서 실행할 SQL 실행객체 생성, 작성
+	5. SQL 실행: Statement 객체 내의 메서드를 실행
+		: Run -> response(3의 Object를 실행)
+		: excuteUpdate(): insert, update, delete 쿼리 사용시 쓰는 메서드
+			반환 타입 정수: 0-실패, 1-성공 (CRUD 중 select-retrieve(read)제외하곤 실패/성공으로 나온다.)
+		: executeQuery(): select SQL 쿼리 사용시 쓰는 메서드
+			반환 타입 ResultSet 객체로 전달 받음.
+			ResultSet이 제공하는 메서드를 통해 결과값을 읽어올 수 있음.
+			** ResultSet 주요 메서드(index는 순서읽어오기)
+				1. next(): select 쿼리의 결과값 존재 여부를 확인. 반환 타입 boolean.
+				2. getString(String name or index): name 컬럼의 문자 타입의 데이터 읽어오기
+				3. getInt(String name or index): name컬럼의 정수 타입 데이터 읽어오기
+				4. getDouble(String name or index): name컬럼의 실수 타입 데이터 읽어오기
+				...
