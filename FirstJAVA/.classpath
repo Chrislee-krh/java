@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="E:/Develop/Java/FirstJAVA/mysql-connector-j-8.1.0.jar"/>
 	<classpathentry kind="lib" path="E:/Develop/Java/FirstJAVA/sqlite-jdbc-3.43.0.0.jar"/>
+	<classpathentry kind="lib" path="E:/Develop/Java/FirstJAVA/mariadb-java-client-3.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

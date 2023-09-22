@@ -6,7 +6,7 @@ import java.util.Map;
 public class Users {
 	private String iD;
 	private String local;
-	static Map<String, String> cl = new HashMap<>();
+	public static Map<String, String> cl = new HashMap<>();
 	
 	public static String getValue(String key) {
         return cl.get(key);

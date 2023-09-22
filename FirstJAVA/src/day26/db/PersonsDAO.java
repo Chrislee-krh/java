@@ -71,7 +71,7 @@ public class PersonsDAO {
 			System.out.println(e.getMessage());
 		} finally {
 			try {
-				if(conn!=null) conn.close();
+//				if(conn!=null) conn.close();
 				if(stmt!=null) stmt.close();
 			} catch (Exception e2) {}
 		}
@@ -141,33 +141,41 @@ public class PersonsDAO {
 		
 		 Scanner scan = new Scanner(System.in);
 		 int result = 0;
-		 String option = null;
-	
+		 String sql = "update Persons set lastName='"+vo.getLastName()+ "' , firstName= '"+vo.getFirstName()
+		 	+ "' , age='"+vo.getAge()+"' ,city= '"+vo.getCity()+"' where id ='"+ vo.getId()+"'";
+		 
 		 try {
 			stmt = conn.createStatement();
-			String sql = "select * from Persons";
-			rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				vo.setId(rs.getInt("id"));
-				vo.setFirstName(rs.getString("firstName"));
-				vo.setLastName(rs.getNString("lastName"));
-				vo.setAge(rs.getInt("age"));
-				vo.setCity(rs.getString("city"));
-			}
-			
+			result = stmt.executeUpdate(sql);
 		 
 		 } catch (SQLException e) {
 			System.out.println("SQL 입력 실패");
 			System.out.println(e.getMessage());
-		 }
+		 } finally {
+			try {
+				if(stmt!=null) stmt.close();
+			} catch (Exception e2) {}
+		}
 		 return result;
 	 }
 	
 	 // 삭제 메서드 구현
 	 public int deletePersons(int id) {
 		 int result = 0;
+		 String sql = "delete from Persons where id = " + id;
 		 
-		 return result;
+		 try {
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+		 
+		 } catch (SQLException e) {
+			System.out.println("SQL 입력 실패");
+			System.out.println(e.getMessage());
+		 } finally {
+			try {
+				if(stmt!=null) stmt.close();
+			} catch (Exception e2) {}
+		} return result;
 	 }
 }
 
