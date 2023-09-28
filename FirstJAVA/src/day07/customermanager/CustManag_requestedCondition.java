@@ -1,4 +1,4 @@
-package day06;
+package day07.customermanager;
 
 public class CustManag_requestedCondition {
 
@@ -35,12 +35,4 @@ public class CustManag_requestedCondition {
 //	"Q(q)-quit"는 프로그램 종료
 //
 //
-	
-	
-	public static void main(String[] args) {
-
-		
-		
-	}
-
 }
